@@ -1,2 +1,2 @@
 # Apple AirPlayer
-Home Assistant integration component, Make your AirPlay devices as TTS speakers.
+Home Assistant integration component, make your AirPlay devices as TTS speakers.
