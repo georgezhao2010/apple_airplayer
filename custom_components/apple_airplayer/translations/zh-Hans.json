@@ -1,0 +1,21 @@
+{
+    "config": {
+        "error": {
+            "no_devices": "未在网络上发现可用的AirPlay设备"
+        },
+        "step": {
+            "user": {
+                "description": "要查找添加新的AirPlay设备吗?",
+                "title": "增加新的AirPlay设备"
+            },
+            "devinfo": {
+                "data": {
+                    "device": "设备",
+                    "cache_dir": "缓存目录"
+                },
+                "description": "选择一个设备并添加",
+                "title": "发现新设备"
+            }
+        }
+    }
+}

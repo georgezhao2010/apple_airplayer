@@ -1,0 +1,21 @@
+{
+    "config": {
+        "error": {
+            "no_devices": "No available devices found on the network"
+        },
+        "step": {
+            "user": {
+                "description": "Do you want to lookup new AirPlay devices?",
+                "title": "Add new AirPlay device"
+            },
+            "devinfo": {
+                "data": {
+                    "device": "Device",
+                    "cache_dir": "Cache dir"
+                },
+                "description": "Choice a device to add",
+                "title": "New device found"
+            }
+        }
+    }
+}

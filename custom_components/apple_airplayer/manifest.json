@@ -1,0 +1,12 @@
+{
+  "domain": "apple_airplayer",
+  "name": "Apple AirPlayer",
+  "version": "v0.0.2",
+  "config_flow": true,
+  "documentation": "https://github.com/georgezhao2010/apple_airplayer",
+  "issue_tracker": "https://github.com/georgezhao2010/apple_airplayer/issue",
+  "requirements": [],
+  "dependencies": [],
+  "iot_class": "local_push",
+  "codeowners": ["@georgezhao2010"]
+}
