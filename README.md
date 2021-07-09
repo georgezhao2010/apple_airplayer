@@ -1,2 +1,2 @@
-# apple_airplayer
+# Apple AirPlayer
 Make your AirPlay devices as TTS speakers
