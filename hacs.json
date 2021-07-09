@@ -1,0 +1,6 @@
+  
+{
+    "name": "Apple AirPlayer",
+    "domains": ["media_player"],
+    "render_readme": true
+}
