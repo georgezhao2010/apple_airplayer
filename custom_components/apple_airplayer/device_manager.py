@@ -1,10 +1,9 @@
 import pyatv
-try:
-    from homeassistent.const import STATE_ON, STATE_OFF
-except ImportError:
-    STATE_ON = "on"
-    STATE_OFF = "off"
+import logging
+from homeassistent.const import STATE_ON, STATE_OFF
 from pyatv.const import DeviceModel, FeatureName, FeatureState, DeviceState
+
+_LOGGER = logging.getLogger(__name__)
 
 _MODEL_LIST = {
     DeviceModel.AirPortExpress: "AirPort Express",
@@ -72,30 +71,45 @@ class AirPlayDevice:
 
     async def async_set_volume_level(self, volume):
         if self._atv_interface is not None and 0 <= volume <= 1:
-            await self._atv_interface.audio.set_volume(volume * 100)
+            try:
+                await self._atv_interface.audio.set_volume(volume * 100)
+            except Exception as e:
+                _LOGGER.debug(f"Exception raised in async_set_volume_level, {e}")
 
     async def async_open(self):
-        self._atv_interface = await pyatv.connect(config=self._atv_conf, loop=self._event_loop)
-        if self._atv_interface is not None:
-            for k, f in self._atv_interface.features.all_features().items():
-                if k == FeatureName.PlayUrl and f.state == FeatureState.Available:
-                    self._support_play_url = True
-                elif k == FeatureName.StreamFile and f.state == FeatureState.Available:
-                    self._support_stream_file = True
+        if self._atv_interface is None:
+            try:
+                self._atv_interface = await pyatv.connect(config=self._atv_conf, loop=self._event_loop)
+                if self._atv_interface is not None:
+                    for k, f in self._atv_interface.features.all_features().items():
+                        if k == FeatureName.PlayUrl and f.state == FeatureState.Available:
+                            self._support_play_url = True
+                        elif k == FeatureName.StreamFile and f.state == FeatureState.Available:
+                            self._support_stream_file = True
+            except Exception as e:
+                _LOGGER.debug(f"Exception raised in async_open, {e}")
 
     async def async_close(self):
         if self._atv_interface is not None:
-            self._atv_interface.close()
-            self._atv_interface = None
-            pass
+            try:
+                self._atv_interface.close()
+                self._atv_interface = None
+            except Exception as e:
+                _LOGGER.debug(f"Exception raised in async_close, {e}")
 
     async def async_play_url(self, url):
         if self._atv_interface is not None:
-            await self._atv_interface.stream.play_url(url)
+            try:
+                await self._atv_interface.stream.play_url(url)
+            except Exception as e:
+                _LOGGER.debug(f"Exception raised in async_play_url, {e}")
 
     async def async_stream_file(self, filename):
         if self._atv_interface is not None:
-            await self._atv_interface.stream.stream_file(filename)
+            try:
+                await self._atv_interface.stream.stream_file(filename)
+            except Exception as e:
+                _LOGGER.debug(f"Exception raised in async_stream_file, {e}")
 
     async def async_set_volume(self, volume):
         if self._atv_interface is not None:

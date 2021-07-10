@@ -64,7 +64,7 @@ class AirPlayer(MediaPlayerEntity):
 
     async def async_set_volume_level(self, volume):
         if 0 <= volume <= 1:
-            await self._player_device.set_volume(volume)
+            await self._player_device.async_set_volume(volume)
 
     async def async_turn_off(self):
         await self._player_device.async_close()
