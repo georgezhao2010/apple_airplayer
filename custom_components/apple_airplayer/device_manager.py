@@ -1,6 +1,6 @@
 import pyatv
 import logging
-from homeassistent.const import STATE_ON, STATE_OFF
+from homeassistant.const import STATE_ON, STATE_OFF
 from pyatv.const import DeviceModel, FeatureName, FeatureState, DeviceState
 
 _LOGGER = logging.getLogger(__name__)
