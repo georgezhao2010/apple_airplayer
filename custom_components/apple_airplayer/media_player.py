@@ -2,9 +2,8 @@ import logging
 import os
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.components.media_player import (
-    SUPPORT_PLAY_MEDIA, SUPPORT_VOLUME_MUTE, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_SET,
-    SUPPORT_TURN_ON, SUPPORT_TURN_OFF, SUPPORT_PLAY, SUPPORT_VOLUME_STEP, MediaPlayerEntity,
-    PLATFORM_SCHEMA
+    SUPPORT_PLAY_MEDIA, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_SET,
+    SUPPORT_TURN_ON, SUPPORT_TURN_OFF, SUPPORT_VOLUME_STEP, MediaPlayerEntity
 )
 from .device_manager import DeviceManager, AirPlayDevice
 from .const import DOMAIN, CONF_CACHE_DIR
