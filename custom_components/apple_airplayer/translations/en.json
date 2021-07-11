@@ -1,7 +1,8 @@
 {
     "config": {
         "error": {
-            "no_devices": "No available devices found on the network"
+            "no_devices": "No available devices found on the network",
+            "device_exist": "Device already configured, choice another one"
         },
         "step": {
             "user": {
@@ -15,6 +16,14 @@
                 },
                 "description": "Choice a device to add",
                 "title": "New device found"
+            },
+            "manually": {
+                "data": {
+                    "Address": "address",
+                    "cache_dir": "Cache dir"
+                },
+                "description": "Enter the IP address of the AirPlay device you want to add",
+                "title": "No device found"
             }
         }
     }

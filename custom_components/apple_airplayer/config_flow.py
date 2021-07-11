@@ -1,7 +1,7 @@
 import logging
 from .const import DOMAIN, DEVICES, CONF_CACHE_DIR
 from homeassistant import config_entries
-from homeassistant.const import CONF_DEVICE
+from homeassistant.const import CONF_DEVICE, CONF_ADDRESS
 from .device_manager import DeviceManager
 import voluptuous as vol
 
@@ -26,7 +26,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             if len(self.available_device) > 0:
                 return await self.async_step_devinfo()
             else:
-                return await self.async_step_user(error="no_devices")
+                return await self.async_step_manually()
         _LOGGER.debug(user_input, error)
         return self.async_show_form(
             step_id="user",
@@ -43,6 +43,30 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema({
                 vol.Required(CONF_DEVICE, default=sorted(self.available_device.keys())[0]):
                     vol.In(self.available_device),
+                vol.Required(CONF_CACHE_DIR, default="/tmp/tts"): str
+            }),
+            errors={"base": error} if error else None
+        )
+
+    async def async_step_manually(self, user_input=None, error=None):
+        if user_input is not None:
+            man = DeviceManager(self.hass.loop)
+            device = await man.async_get_device_by_address(user_input[CONF_ADDRESS])
+            if device is not None:
+                identifier = device.identifier
+                if identifier in self.hass.data[DOMAIN][DEVICES] or \
+                        user_input[CONF_ADDRESS] in self.hass.data[DOMAIN][DEVICES]:
+                    return await self.async_step_manually(error="device_exist")
+                return self.async_create_entry(
+                    title=f"{device.name}",
+                    data=user_input)
+            else:
+                return await self.async_step_manually(error="no_devices")
+
+        return self.async_show_form(
+            step_id="manually",
+            data_schema=vol.Schema({
+                vol.Required(CONF_ADDRESS): str,
                 vol.Required(CONF_CACHE_DIR, default="/tmp/tts"): str
             }),
             errors={"base": error} if error else None

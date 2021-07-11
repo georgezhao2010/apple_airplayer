@@ -8,18 +8,24 @@ from homeassistant.components.media_player import (
 )
 from .device_manager import DeviceManager, AirPlayDevice
 from .const import DOMAIN, CONF_CACHE_DIR
-from homeassistant.const import CONF_DEVICE
+from homeassistant.const import CONF_DEVICE, CONF_ADDRESS
 
 _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
-    identifier = config_entry.data[CONF_DEVICE]
+    identifier = config_entry.data.get(CONF_DEVICE)
+    address = config_entry.data.get(CONF_ADDRESS)
     cache_dir = config_entry.data[CONF_CACHE_DIR]
     man = DeviceManager(hass.loop)
-    device = await man.async_get_device(identifier)
-    await device.async_open()
-    async_add_entities([AirPlayer(device, cache_dir)])
+    device = None
+    if identifier is not None:
+        device = await man.async_get_device_by_identifier(identifier)
+    elif address is not None:
+        device = await man.async_get_device_by_address(address)
+    if device is not None:
+        await device.async_open()
+        async_add_entities([AirPlayer(device, cache_dir)])
 
 
 class AirPlayer(MediaPlayerEntity):

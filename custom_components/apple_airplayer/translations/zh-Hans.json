@@ -1,7 +1,8 @@
 {
     "config": {
         "error": {
-            "no_devices": "未在网络上发现可用的AirPlay设备"
+            "no_devices": "未在网络上发现可用的AirPlay设备",
+            "device_exist": "设备已经存在，请添加其它设备"
         },
         "step": {
             "user": {
@@ -15,6 +16,14 @@
                 },
                 "description": "选择一个设备并添加",
                 "title": "发现新设备"
+            },
+            "manually": {
+                "data": {
+                    "Address": "地址",
+                    "cache_dir": "缓存目录"
+                },
+                "description": "输入你想要添加的设备的IP地址",
+                "title": "没有自动发现设备"
             }
         }
     }

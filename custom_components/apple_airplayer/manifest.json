@@ -1,7 +1,7 @@
 {
   "domain": "apple_airplayer",
   "name": "Apple AirPlayer",
-  "version": "v0.0.3",
+  "version": "v0.0.4",
   "config_flow": true,
   "documentation": "https://github.com/georgezhao2010/apple_airplayer",
   "issue_tracker": "https://github.com/georgezhao2010/apple_airplayer/issue",
