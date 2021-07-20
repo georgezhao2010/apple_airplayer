@@ -19,7 +19,7 @@ Use HACS and Install as a custom repository, or copy all files in custom_compone
 # Configuration
 Add Apple AirPlayer component in Home Assistant integrations page, it could auto-discover Airplay devices in network. If component can not found any devices, you can specify the IP address to add the device.
   
-# Supports Devices
+# Supported Devices
 - AirPort Express
 - AirPort Express Gen2
 - Apple TV 2
