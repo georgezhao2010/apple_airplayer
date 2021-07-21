@@ -4,7 +4,7 @@
 
 Home Assistant integration component, make your AirPlay devices as TTS speakers.
 
-# Befor Use
+# Before Use
 Apple Airplayer component requires [pyatv](https://pyatv.dev/development/) 0.8.1, which is self-contained in the latest version Home Assistant (2021.7.3). You can run `pip list | grep pyqatv` in your Home Assistant container host to check the version of pyatv. If lower than 0.8.1, you should run commands as below to upgrade pyatv.
 ```
 apk update
