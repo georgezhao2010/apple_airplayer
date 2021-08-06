@@ -1,0 +1,30 @@
+{
+    "config": {
+        "error": {
+            "no_devices": "在網絡上找不到可用的 AirPlay 設備",
+            "device_exist": "設備已經存在，請新增其他設備"
+        },
+        "step": {
+            "user": {
+                "description": "要尋找新的 AirPlay 設備嗎？",
+                "title": "新增 AirPlay 設備"
+            },
+            "devinfo": {
+                "data": {
+                    "device": "設備",
+                    "cache_dir": "暫存目錄"
+                },
+                "description": "選擇一個設備並新增",
+                "title": "發現新設備"
+            },
+            "manually": {
+                "data": {
+                    "Address": "地址",
+                    "cache_dir": "暫存目錄"
+                },
+                "description": "輸入你想要新增的設備 IP 地址",
+                "title": "沒有發現設備"
+            }
+        }
+    }
+}
