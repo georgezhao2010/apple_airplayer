@@ -5,6 +5,7 @@
 Home Assistant integration component, make your AirPlay devices as TTS speakers.
 
 # Before Use
+## 2021.6. X or earlier
 Apple Airplayer component requires [pyatv](https://pyatv.dev/development/) 0.8.1, which is self-contained in the latest version Home Assistant (2021.7.3). You can run `pip list | grep pyqatv` in your Home Assistant container host to check the version of pyatv. If lower than 0.8.1, you should run commands as below to upgrade pyatv.
 ```
 apk update
@@ -13,6 +14,7 @@ pip3 install --upgrade pyatv
 pip3 install --upgrade attrs
 ```
 
+## 2021.7. X or later
 There is a bug in Homeassistant 2021.7.3 ~ 2021.8.2 of HASSOS and it will cause HA core crash.
 If you are using HA 2021.7.3 ~ 2021.8.2, you need to reinstall miniaudio
 1. Install 'SSH & Web Terminal'. Remember that set up the password in configuration.
