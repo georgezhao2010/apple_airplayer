@@ -19,7 +19,6 @@ There is a bug in Home Assistant 2021.7.3 ~ 2021.8.2 and it will cause HA core c
 If you are using HA 2021.7.3 ~ 2021.8.2, you need to reinstall miniaudio.
 Enter the following commands
 ```
-docker exec -it homeassistant /bin/bash
 apk update
 apk add build-base
 pip3 uninstall --yes miniaudio
