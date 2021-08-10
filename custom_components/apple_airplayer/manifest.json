@@ -1,11 +1,11 @@
 {
   "domain": "apple_airplayer",
   "name": "Apple AirPlayer",
-  "version": "v0.0.4",
+  "version": "v0.0.6",
   "config_flow": true,
   "documentation": "https://github.com/georgezhao2010/apple_airplayer",
   "issue_tracker": "https://github.com/georgezhao2010/apple_airplayer/issue",
-  "requirements": ["pyatv==0.8.1"],
+  "requirements": ["pyatv==0.8.2"],
   "dependencies": [],
   "iot_class": "local_push",
   "codeowners": ["@georgezhao2010"]

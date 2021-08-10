@@ -79,9 +79,9 @@ class AirPlayer(MediaPlayerEntity):
 
     async def async_play_media(self, media_type, media_id, **kwargs):
         if self._player_device.support_play_url:
-            await self.async_play_url(media_id)
+            self.hass.async_create_task(self.async_play_url(media_id))
         elif self._player_device.support_stream_file:
-            await self.async_play_stream(media_id)
+            self.hass.async_create_task(self.async_play_stream(media_id))
 
     async def async_save_audio_file(self, filename, data):
         def save_audio():
