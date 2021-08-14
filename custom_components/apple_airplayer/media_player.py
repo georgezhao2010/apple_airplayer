@@ -33,8 +33,11 @@ class AirPlayer(MediaPlayerEntity):
         self._unique_id = f"{DOMAIN}.airplay_{self._player_device.identifier}"
         self.entity_id = self._unique_id
         self._cache_dir = cache_dir
-        self._features = SUPPORT_TURN_ON | SUPPORT_TURN_OFF | SUPPORT_PLAY_MEDIA
-        self._features = self._features | SUPPORT_VOLUME_SET | SUPPORT_VOLUME_STEP
+        self._features = SUPPORT_TURN_ON | SUPPORT_TURN_OFF
+        if self._player_device.support_stream_file or self._player_device.support_play_url:
+            self._features |= SUPPORT_PLAY_MEDIA
+        if self._player_device.support_volume_set:
+            self._features |= SUPPORT_VOLUME_SET | SUPPORT_VOLUME_STEP
         self._device_info = {
             "identifiers": {(DOMAIN, self._player_device.identifier)},
             "manufacturer": self._player_device.manufacturer,

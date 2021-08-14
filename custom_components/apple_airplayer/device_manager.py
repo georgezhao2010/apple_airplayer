@@ -1,5 +1,6 @@
 import pyatv
 import logging
+import asyncio
 from homeassistant.const import STATE_ON, STATE_OFF
 from pyatv.const import DeviceModel, FeatureName, FeatureState
 
@@ -18,6 +19,7 @@ _MODEL_LIST = {
     DeviceModel.Unknown: "Unknown"
 }
 
+
 class AirPlayDevice:
     def __init__(self, atv: pyatv.conf.AppleTV, event_loop):
         self._event_loop = event_loop
@@ -25,6 +27,8 @@ class AirPlayDevice:
         self._atv_interface = None
         self._support_play_url = False
         self._support_stream_file = False
+        self._support_volume = False
+        self._support_volume_set = False
 
     @property
     def name(self) -> str:
@@ -63,8 +67,16 @@ class AirPlayDevice:
         return self._support_stream_file
 
     @property
+    def support_volume(self) -> bool:
+        return self._support_volume
+
+    @property
+    def support_volume_set(self) -> bool:
+        return self._support_volume_set
+
+    @property
     def volume_level(self):
-        if self._atv_interface is not None:
+        if self._atv_interface is not None and self._support_volume:
             return self._atv_interface.audio.volume / 100
         else:
             return 0.5
@@ -79,6 +91,12 @@ class AirPlayDevice:
                             self._support_play_url = True
                         elif k == FeatureName.StreamFile and f.state == FeatureState.Available:
                             self._support_stream_file = True
+                        elif k == FeatureName.Volume and f.state == FeatureState.Available:
+                            self._support_volume = True
+                        elif k == FeatureName.SetVolume and f.state == FeatureState.Available:
+                            self._support_volume_set = True
+
+
             except Exception as e:
                 _LOGGER.error(f"Exception raised in async_open, {e}")
 
@@ -91,25 +109,33 @@ class AirPlayDevice:
                 _LOGGER.error(f"Exception raised in async_close, {e}")
 
     async def async_play_url(self, url):
-        if self._atv_interface is not None:
-            try:
-                await self._atv_interface.stream.play_url(url)
-            except Exception as e:
-                _LOGGER.error(f"Exception raised in async_play_url, {e}")
+        if self._atv_interface is None:
+            await self.async_open()
+        try:
+            await self._atv_interface.stream.play_url(url)
+            await asyncio.sleep(1)
+        except Exception as e:
+            _LOGGER.error(f"Exception raised in async_play_url, {e}")
 
     async def async_stream_file(self, filename):
-        if self._atv_interface is not None:
-            try:
-                await self._atv_interface.stream.stream_file(filename)
-            except Exception as e:
-                _LOGGER.error(f"Exception raised in async_stream_file, {e}")
+        if self._atv_interface is None:
+            await self.async_open()
+        try:
+            await self._atv_interface.stream.stream_file(filename)
+            await asyncio.sleep(1)
+        except Exception as e:
+            _LOGGER.error(f"Exception raised in async_stream_file, {e}")
 
     async def async_set_volume(self, volume):
-        if self._atv_interface is not None:
-            try:
+        if self._atv_interface is None:
+            await self.async_open()
+        try:
+            if self._support_volume_set:
                 await self._atv_interface.audio.set_volume(volume * 100)
-            except Exception as e:
-                _LOGGER.error(f"Exception raised in async_set_volume, {e}")
+            else:
+                _LOGGER.error(f"Device is not supports set volume")
+        except Exception as e:
+            _LOGGER.error(f"Exception raised in async_set_volume, {e}")
 
 
 class DeviceManager:
