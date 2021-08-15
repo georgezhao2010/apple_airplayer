@@ -1,6 +1,7 @@
 # Apple AirPlayer
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+[![Stable](https://img.shields.io/github/v/release/georgezhao2010/apple_airplayer)](https://github.com/georgezhao2010/apple_airplayer/releases/latest)
 
 Home Assistant integration component, make your AirPlay devices as TTS speakers.
 
