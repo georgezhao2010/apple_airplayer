@@ -24,7 +24,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry):
 
 
 async def async_unload_entry(hass: HomeAssistant, config_entry):
-    identifier = config_entry.data(CONF_DEVICE)
+    identifier = config_entry.data.get(CONF_DEVICE)
     address = config_entry.data.get(CONF_ADDRESS)
     if identifier is not None:
         hass.data[DOMAIN][DEVICES].remove(identifier)
